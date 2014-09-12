@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="cabflixApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>MeetingFlix</title>
+	
+    <link rel="stylesheet" href="MeetingFlixAssets/css/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="MeetingFlixAssets/css/jquery.mobile-changes.css">
+    <link rel="stylesheet" href="MeetingFlixAssets/css/touchcarousel.css">
+	<link rel="stylesheet" href="MeetingFlixAssets/css/touchcarousel-changes.css">
+    <link rel="stylesheet" href="MeetingFlixAssets/css/cabflix.css">
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	
+	<script src="MeetingFlixAssets/js/jquery-2.1.1.min.js"></script>
+    <script src="MeetingFlixAssets/js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="MeetingFlixAssets/js/jquery.touchcarousel-1.2.min.js"></script>
+    <script src="MeetingFlixAssets/js/angular.min.js"></script>
+	<script src="MeetingFlixAssets/js/jquery.SPServices-2014.01.min.js"></script>
+	<script src="MeetingFlixAssets/js/jquery.nicescroll.js"></script>
+	
+	<script src="MeetingFlixAssets/js/meetingflix.app.js"></script>
+    <script src="MeetingFlixAssets/js/meetingflix.services.js"></script>
+    <script src="MeetingFlixAssets/js/meetingflix.controllers.js"></script>
+	
+	<!--eCabSharedAssets-->
+	<script src="../SharedAssets/RightPanelEngine.js"></script>
+	<link rel="stylesheet" href="../SharedAssets/RightPanelStyling.css">
+	
+	<script>
+	$(document).ready(function() {
+		//Hides Page until everything is ready
+		$('body').css('visibility', 'visible');
+		//Adds Return key listener to search bar
+		document.onkeyup=function(e) {
+			if(e.which == 13){
+				$('#search-input').blur();
+
+				return false;
+			}
+		}
+	});
+	</script>
+</head>
+<body style="visibility:hidden">
+	<div ng-controller="controllerBuildMainInterface" data-role="page" class="jqm-panel-page" data-quicklinks="true">
+		<header data-role="header" class="jqm-header">
+			<a href="#agenda-panel" id="agenda-button" class="ui-link ui-btn ui-icon-bars ui-btn-icon-left ui-btn-inline ui-shadow ui-corner-all">Agenda</a>
+			<h1 style="overflow:visible">
+				<span class="app-name">MeetingFlix</span> 
+				{{ meetingInfo["@Subject"] }}, 
+				{{ meetingInfo["@StartTime"] | datetimetojusttime }}-{{ meetingInfo["@EndTime"] | datetimetojusttime }} 
+			</h1>	
+			<a data-ajax="false" href="MeetingsList.html" id="meetings-button" class="ui-link ui-btn ui-icon-bars ui-btn-inline ui-shadow ui-corner-all">Meetings</a>
+		</header>
+
+		<!-- Main Page Build -->
+		<div role="main" class="ui-content jqm-content">
+			<input ng-model="search.$" data-clear-btn="true" placeholder="Search" id="search-input">
+			<select ng-model="listview" id="listview-input" ng-init="listview=3" ng-change="changePage()">
+				<option value="1">Agenda View</option>
+				<option value="2">Sort By Categories</option>
+				<option value="4">Sort By Types</option>
+				<option value="3" selected>Cover Flow</option>
+			</select>
+			<div id="notifications"><h2>Notifications</h2></div>
+			<div id="side-pull">
+				<div class="agendaitem" on-last-repeat>
+					<h2>Cover Flow</h2>
+					<div class="carousel-image-and-text touchcarousel black-and-white" style="height:500px">       
+						<ul class="touchcarousel-container">
+							<div ng-repeat="band in bands | filter:search" on-last-repeat>
+								<li id="tile{{band['@ID']}}-{{tile['@ID']}}" class="touchcarousel-item" ng:class="(tile['@New'] && 'newTile') || (tile['@Updated'] && 'updatedTile') || (tile['@Withdrawn'] && 'withdrawnTile')" ng-repeat="tile in band['@Tiles'] | filter:search">
+									<a class="item-block" href="javascript:void(0);" ng-click="selected(band['@ID'],tile['@ID'])">
+										<img ng-src="{{ tile['@Image'] | checkForImageAuthenticity }}" alt="{{ tile['@Name'] }}" width="170" height="230" />
+										<h3>
+											<strong class="tile-name" style="color:#e2e8eb">{{ tile['@Name'] | truncatetitle }}</strong>
+											<span ng-repeat="leadorg in tile['@LeadOrganizations']">
+												<abbr class="tile-abbr" title="{{ leadorg['@Name'] }}" style="font-weight:normal">{{ leadorg["@Abbreviation"] }}</abbr><span ng-show=" ! $last ">,</span>
+											</span>
+										</h3>
+									</a>
+								</li>
+							</div>
+						</ul>
+					</div> <!-- /.touchcarousel -->
+				</div> <!-- /.agendaitem -->
+			</div><!-- /#side-pull -->
+		</div><!-- /main -->
+
+		<!-- Left Panel -->
+		<div data-role="panel" id="agenda-panel" data-position="left" data-display="push" data-theme="b">
+			<h2>Meeting Agenda</h2>
+			<ol>
+				<li ng-repeat="items in bands" class="agenda-items">
+					<strong>{{ items["@Name"] }} ({{ items["@Tiles"][0]["@EstimatedStartTime"] | datetimetojusttime }} - {{ items["@Tiles"][items["@Tiles"].length-1]["@EstimatedEndTime"] | datetimetojusttime }})</strong><br />
+					<div ng-bind-html="items['@Description'] | unsafe"></div>
+					<ol>
+						<li ng-repeat="tile in items['@Tiles']" ng:class="(tile['@Withdrawn'] && 'withdrawnTile')">
+							<a href="javascript:void(0)"  ng-click="selected(items['@ID'],tile['@ID'])">{{ tile["@Name"] }}</a> ({{ tile["@EstimatedStartTime"] | datetimetojusttime }} - {{ tile["@EstimatedEndTime"] | datetimetojusttime }})<br/>
+							<span>{{ tile["@ShortDescription"] }}</span>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</div><!-- /#main-left-panel -->
+
+		<!-- Right Panel -->
+		<div data-role="panel" id="submission-info-panel" data-position-fixed="true" data-position="right" data-display="overlay" data-theme="b">
+			<a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-right ui-btn-inline">Close Summary</a>
+			<div id="submission-info-panel-inner">
+				
+			</div>
+		</div><!-- /#main-right-panel -->
+		
+	</div><!-- /page -->
+</body>
+</html>

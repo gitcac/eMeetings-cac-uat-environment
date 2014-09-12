@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="meetingFlixApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <title>MeetingFlix</title>
+	
+    <link rel="stylesheet" href="MeetingFlixAssets/css/meetingflix.css">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	
+	<script src="MeetingFlixAssets/js/catchIE.js"></script>
+	<script src="MeetingFlixAssets/js/jquery-2.1.1.min.js"></script>
+    <script src="MeetingFlixAssets/js/jquery.mobile-1.4.3.min.js"></script>
+    <script src="MeetingFlixAssets/js/jquery.touchcarousel-1.2.min.js"></script>
+    <script src="MeetingFlixAssets/js/angular.min.js"></script>
+	<script src="MeetingFlixAssets/js/jquery.SPServices-2014.01.min.js"></script>
+	<script src="MeetingFlixAssets/js/jquery.nicescroll.js"></script>
+	
+	<script src="MeetingFlixAssets/js/meetingflix.app.js"></script>
+    <script src="MeetingFlixAssets/js/meetingflix.services.js"></script>
+    <script src="MeetingFlixAssets/js/meetingflix.controllers.js"></script>
+	
+	<!-- MeetingFlix & BinderBuilder Shared Assets -->
+	<script src="../SharedAssets/RightPanelEngine.js"></script>
+	<link rel="stylesheet" href="../SharedAssets/RightPanelStyling.css">
+	
+	<script>
+		$(document).ready(function() {
+			// Hides page until everything is ready
+			$('body').css('visibility', 'visible');
+			// Adds Return key listener to search bar
+			document.onkeyup=function(e) {
+				if(e.which == 13){
+					$('#search-input').blur();
+					return false;
+				}
+			}
+			
+			// Stops main content from scrolling while panels are active
+			$('#submission-info-panel').panel({
+				beforeopen: function( event, ui ) {
+					$('body').css("overflow-y","hidden");
+				},
+				beforeclose: function( event, ui ) {
+					$('body').css("overflow-y","auto");
+				}
+			});
+			$('#agenda-panel').panel({
+				beforeopen: function( event, ui ) {
+					$('body').css("overflow-y","hidden");
+				},
+				beforeclose: function( event, ui ) {
+					$('body').css("overflow-y","auto");
+				}
+			});
+			
+			// Debugging
+			if (getParameterByName("hardreset") != ""){
+							localStorage.clear();
+						}
+		});
+	</script>
+	
+</head>
+<body style="visibility:hidden;">
+	<div id="main-page" ng-controller="controllerBuildMainInterface" data-role="page" class="jqm-panel-page" data-quicklinks="true">
+
+		<header id="main-header" data-tap-toggle="false" data-position="fixed" data-role="header" role="banner" class="jqm-header">
+			<a data-ajax="false" class="offscreen" href="#main-content">Skip to Content</a>
+			<div class="ui-header ui-bar-b">
+				<h1 class="ui-title" role="heading" aria-level="1">
+					MeetingFlix
+				</h1>
+				<a href="MeetingsList.html" data-ajax="false" class="ui-btn-left ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all" data-theme="b" data-role="button" role="button">Back</a>
+				<a id="notifications-button" href="#notifications" data-rel="popup" data-role="button" data-inline="true" aria-haspopup="true" aria-owns="main-menu" aria-expanded="false" class="ui-btn-right ui-btn-icon-left ui-link ui-btn ui-shadow ui-corner-all" data-theme="b" role="button">
+					<span id="notifications-count" class="ui-icon ui-icon-left ui-icon-shadow"></span>
+					<span class="ui-btn-inner"><span class="ui-btn-text">Notifications</span>
+				</a>
+				<div id="notifications" data-role="popup">
+				</div><!-- /#notifications -->
+			</div><!-- /.ui-header -->
+			<nav id="main-nav" data-role="navbar" role="navigation">
+				<ul class="ui-grid-c">
+					<li class="ui-block-a"><a data-ajax="false" href="MeetingFlix.html" class="ui-link ui-btn">Welcome</a></li>
+					<li class="ui-block-b"><a data-ajax="false" href="MeetingsList.html" class="ui-link ui-btn">List</a></li>
+					<li class="ui-block-c"><a data-ajax="false" href="#" class="ui-link ui-btn ui-state-disabled">Memos</a></li>
+					<li class="ui-block-d"><a data-ajax="false" href="#" class="ui-link ui-btn ui-btn ui-state-disabled ui-btn-active">Meeting</a></li>
+				</ul>
+			</nav>
+			<div class="custom-grid-1">
+				<div class="ui-block-a">
+					<div class="ui-body ui-body-d">
+						<a href="#agenda-panel" data-theme="a" id="agenda-button" class="ui-link ui-btn ui-btn-b ui-icon-bars ui-btn-icon-left ui-btn-inline ui-shadow ui-corner-all">Agenda</a>
+					</div><!-- /.ui-body -->
+				</div><!-- /.ui-block-a -->
+				<div class="ui-block-b">
+					<div class="ui-body ui-body-d">
+						<label for="listview-input" class="offscreen">Sort the bands by:</label>
+						<select ng-model="listview" id="listview-input" ng-init="listview=1" ng-change="changePage()">
+							<option value="1" selected>Agenda View</option>
+							<option value="2">Sort By Categories</option>
+							<option value="4">Sort By Types</option>
+							<option value="3">Cover Flow</option>
+						</select>
+					</div><!-- /.ui-body -->
+				</div><!-- /.ui-block-b -->
+				<div class="ui-block-c">
+					<div class="ui-body ui-body-d">
+						<label for="search-input" class="offscreen">Real-time Search Filter</label>
+						<input ng-model="search.$" type="text"  data-clear-btn="true" placeholder="Search" id="search-input">
+					</div><!-- /.ui-body -->
+				</div><!-- /.ui-block-c -->
+			</div><!-- /#custom-grid-1 -->
+		</header>
+
+		<!-- Main Page (Tiles) -->
+		<section id="main-content" data-role="content" role="main" class="ui-content jqm-content">
+			<h2 id="meeting-name" class="ui-title centre main-colour" role="heading">
+				{{ meetingInfo["@Subject"] }}, <br>
+				<span class="ui-title-date-time">{{ meetingInfo["@StartTime"] | datetimetojusttime }}-{{ meetingInfo["@EndTime"] | datetimetojusttime }}</span>
+			</h2>
+			<div id="side-pull">
+				<article class="agendaitem" ng-repeat="band in bands | filter:search" ng:class="{'banish': band['@NonAgendaBand']=='1' && band['@Tiles'].length == 0}" on-last-repeat>
+					<h3 class="band-title">{{ band["@Name"] }}</h3>
+					<div class="carousel-image-and-text touchcarousel black-and-white">
+						<ul class="touchcarousel-container" id="carousel-holder-{{ band['@ID'] }}" ng:class="{'nonagendaband': band['@NonAgendaBand']=='1'}">
+							<li id="tile{{band['@ID']}}-{{tile['@ID']}}" value="{{tile['@TileNumber']}}" class="touchcarousel-item" ng-repeat="tile in band['@Tiles'] | filter:search">
+								<a class="item-block" href="javascript:void(0);" ng-click="selected(band['@ID'],tile['@ID'])">
+									<img ng-src="{{ tile['@Image'] | checkForImageAuthenticity }}" ng:class="{'withdrawn-tile': tile['@Withdrawn'], 'coi-tile': tile['@DisplayCOI'], 'ice-tile': tile['@DisplayICE']}" alt="">
+									<div class="tile-header">
+										<span class="new-tile" ng-if="tile['@New'] == true">New</span>
+										<span class="updated-tile" ng-if="tile['@Updated'] == true">Updated</span>
+										<span class="withdrawn-tile" ng-if="tile['@Withdrawn']">Withdrawn</span>
+										<span class="coi-tile" ng-if="tile['@DisplayCOI'] == true">Conflict of Interest</span>
+										<span class="ice-tile" ng-if="tile['@UsersExcludedDueToInCamera'] != null && tile['@UsersExcludedDueToInCamera'] != ''">In-Camera</span>
+									</div>
+									<p>
+										<span class="tile-name">{{ tile['@Name'] | truncatetitle }}</span><br>
+										<span ng-repeat="leadorg in tile['@LeadOrganizations']">
+											<abbr class="tile-abbr" title="{{ leadorg['@Name'] }}">{{ leadorg["@Abbreviation"] }}</abbr><span ng-show=" ! $last ">,</span>
+										</span>
+									</p>
+								</a>
+							</li>
+						</ul>
+					</div><!-- /.touchcarousel -->
+				</article><!-- /.agendaitem -->
+			</div><!-- /#side-pull -->
+		</section><!-- /#main-content -->
+
+		<!-- Left Panel (Agenda) -->
+		<aside data-role="panel" id="agenda-panel" data-position-fixed="true" data-position="left" data-display="push" data-theme="b">
+			<h2 class="ui-title">Meeting Agenda</h2>
+			<a href="#" id="agenda-panel-close" data-rel="close" class="ui-btn ui-btn-right ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-right ui-btn-inline">Close</a>
+			<div id="agenda-panel-inner">
+				<div id="agenda-content">
+					<div ng-bind-html="meetingInfo['@Notes'] | unsafe"></div>
+					<ol>
+						<li ng-repeat="items in bands" ng-if="items['@NonAgendaBand'] == 0" class="agenda-items">
+							<strong>
+								{{ items["@Name"] }}<br>
+								{{ items["@Tiles"][0]["@EstimatedStartTime"] | datetimetojusttime }} - {{ items["@Tiles"][items["@Tiles"].length-1]["@EstimatedEndTime"] | datetimetojusttime }}
+							</strong><br>
+							<div ng-bind-html="items['@Description'] | unsafe"></div>
+							<ol>
+								<li ng-repeat="tile in items['@Tiles']" value="{{ tile['@TileNumber'] }}" ng:class="{'new-tile': tile['@New'], 'updated-tile': tile['@Updated'], 'withdrawn-tile': tile['@Withdrawn'], 'coi-tile': tile['@DisplayCOI'], 'ice-tile': tile['@DisplayICE']}">
+									<a href="javascript:void(0)"  ng-click="selected(items['@ID'],tile['@ID'])">{{ tile["@Name"] }}</a><br>
+									{{ tile["@EstimatedStartTime"] | datetimetojusttime }} - {{ tile["@EstimatedEndTime"] | datetimetojusttime }}
+									<p class="agenda-tile-agenda-desc" ng-if='tile["@ShortDescription"] != null'>{{ tile["@ShortDescription"] }}</p>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</div><!-- /#agenda-content -->
+			</div><!-- /#agenda-panel-inner -->
+		</aside><!-- /#main-left-panel -->
+
+		<!-- Right Panel (Submission Details) -->
+		<aside data-role="panel" id="submission-info-panel" data-position-fixed="true" data-position="right" data-display="overlay" data-theme="b">
+			<a href="#" id="right-panel-close" data-rel="close" class="ui-btn ui-btn-left ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-right ui-btn-inline">Close</a>
+			<div id="submission-info-panel-inner">
+			</div>
+		</aside><!-- /#main-right-panel -->
+
+	</div><!-- /page -->
+</body>
+</html>

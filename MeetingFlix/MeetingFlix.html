@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en" manifest="cache.appcache">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>MeetingFlix</title>
+		
+		<link rel="stylesheet" href="MeetingFlixAssets/css/splash.css">
+		
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		
+		<script src="MeetingFlixAssets/js/catchIE.js"></script>
+		<script src="MeetingFlixAssets/js/jquery-2.1.1.min.js"></script>
+		<script src="MeetingFlixAssets/js/jquery.SPServices-2014.01.min.js"></script>
+		
+		<script>
+			// Stretch background image to fit screen
+			$(window).load(function() {    
+				// Scale background image
+				var theWindow = $(window),
+					$bg = $("#bg"),
+					aspectRatio = $bg.width() / $bg.height(); 		
+				function resizeBg() {
+					if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
+						$bg
+							.removeClass()
+							.addClass('bgheight');
+					} else {
+						$bg
+							.removeClass()
+							.addClass('bgwidth');
+					}
+				}   			
+				theWindow.resize(resizeBg).trigger("resize");	
+			});
+			
+	    	// Set user avatar and info
+			$(document).ready(function() {
+				var online = navigator.onLine;
+				if (online){		
+					// Get current AD User
+					var CurrentUser = $().SPServices.SPGetCurrentUser({
+						fieldNames: ["FirstName", "LastName", "JobTitle"],
+						debug: false
+					});
+					$.when(CurrentUser).done(function() {
+						document.getElementById("user-fullname").innerHTML = CurrentUser.FirstName + " " + CurrentUser.LastName;
+						document.getElementById("user-title").innerHTML = CurrentUser.JobTitle;
+					});
+				}
+				// Offline
+				else {
+					document.getElementById("user-information").style.display = "none";
+				}
+			});	
+		</script>
+	</head>
+	<body>
+		<img src="MeetingFlixAssets/img/splash/splash-bg.jpg" id="bg" alt="" />
+		<div id="splash-box">
+			<img id="ont-logo" src="MeetingFlixAssets/img/splash/ontario.png" alt="Ontario Logo">
+			<h1>Welcome to <em>MeetingFlix</em></h1>
+			<div id="content-box">
+				<div id="user-information">
+					<img id="user-image" alt="" class="avatar" src="MeetingFlixAssets/img/splash/default-user.png">
+					<p><strong id="user-fullname"></strong><br><span id="user-title"></span></p>
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunte.</p>
+				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Sed ut perspiciatis, totam rem vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugitveritatis et quasie.</p>
+				<p>Aenean blandit ante non ligula eleifend, sit amet varius suscipit id lobortis at, pellentesque eget lacus. Morbi posuere mollise.</p>
+				<div id="enter-button" class="center">
+					<a href="MeetingsList.html" title="Proceed with MeetingFlix">Enter</a>
+				</div>
+				<p id="disclaimer"><em><strong>Disclaimer</strong>: Please note that MeetingFlix contains confidential documents covered by the Oaths of Office.</em></p>
+			</div><!-- /#content-box -->
+		</div><!-- /#splash-box -->
+	</body>
+</html>

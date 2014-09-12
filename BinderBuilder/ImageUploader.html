@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name="viewport" content="width=500">
+	<title>Customized SP Image Compressor and Uploader</title>
+	<link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-changes.css">
+	<script src="BinderBuilderAssets/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="BinderBuilderAssets/js/jquery-ui-1.10.4.min.js" type="text/javascript"></script>
+	<script src="BinderBuilderAssets/js/jquery.mobile-1.4.2.min.js"></script>
+	<script src="BinderBuilderAssets/js/JIC.js" type="text/javascript"></script>
+	<script src="BinderBuilderAssets/js/ImageUploader.js" type="text/javascript"></script>
+	<script src="BinderBuilderAssets/js/jquery.SPServices-2014.01.min.js" type="text/javascript"></script>
+	<style>
+		.missingData{
+			border:thin solid red !important;
+		}
+	</style>
+</head>
+<body style="overflow:hidden">
+  <section id="wrapper" style="margin-top:1em;">
+    <article id='article'>
+      <div class='holder' id="holder">
+        <div id='holder_helper' style="border:thick gray dashed;width:350px;height:350px;margin:0 auto;text-align:center">
+          <h2 id="holder_helper_title" style="padding:70px;">Drag &amp; Drop your Image here!</h2>
+        </div>
+        <img id="source_image" class='img_container' style="position:absolute;top:1em;margin-left:auto;margin-right:auto;left:0;right:0;"/>
+      </div>
+      <div class='holder' id='holder_result' style="display:none">
+        <img id="result_image" class='img_container' />
+      </div>
+	  <input placeholder="Image Title" type="text" id="image-title" name="image-title" style="margin:0 auto;display:block"/>
+	  <a data-ajax="false" class='ui-link ui-btn ui-icon-arrow-l ui-btn-inline ui-shadow ui-corner-all' id="jpeg_encode_button" style="display:block;cursor:pointer;width:200px;margin:0 auto;">Compress &amp; Upload</a>&nbsp;
+      <div class='col' id='left-col' style="visibility:hidden">
+        <fieldset>
+          <legend>Compressor settings</legend>
+          <div id="slider-range-min"></div>
+          <div id='controls-wrapper'>
+             Compression ratio : <input id="jpeg_encode_quality" size='3' readonly='true' type="text" value="50"/> %
+            <div id='buttons-wrapper'>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class='col' id='right-col' style="visibility:hidden">
+        <fieldset>
+          <legend>Console output</legend>
+          <div id='console_out'></div>
+        </fieldset>
+      </div>
+      <div class='clear'></div>
+    </article>
+  </section>
+</body>
+</html>

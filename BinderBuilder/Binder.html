@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>BinderBuilder</title>
+	
+    <link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-changes.css">
+	<link rel="stylesheet" type="text/css" href="BinderBuilderAssets/css/jqm-datebox.min.css" /> 
+    <link rel="stylesheet" href="BinderBuilderAssets/css/binderbuilder.css">
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	
+	
+	<script src="BinderBuilderAssets/js/jquery-2.1.1.min.js"></script>
+    <script src="BinderBuilderAssets/js/jquery.mobile-1.4.2.min.js"></script>
+	<script src="BinderBuilderAssets/js/jqm-datebox.core.min.js"></script>
+	<script src="BinderBuilderAssets/js/jqm-datebox.mode.calbox.min.js"></script>
+	<script src="BinderBuilderAssets/js/jqm-datebox.mode.datebox.min.js"></script>
+	<script src="BinderBuilderAssets/tinymce/tinymce.min.js"></script>
+	
+	<script src="BinderBuilderAssets/js/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script src="BinderBuilderAssets/js/jqm-datebox.mode.flipbox.min.js"></script>
+	<script src="BinderBuilderAssets/js/jquery.SPServices-2014.01.min.js"></script>
+	<script src="BinderBuilderAssets/js/jquery-ui-1.10.4.min.js"></script>
+	<script src="BinderBuilderAssets/js/BinderBuilderController.js"></script>
+	<script src="BinderBuilderAssets/js/base64Converters.js"></script>
+	
+	<!--eCabSharedAssets-->
+	<script src="../SharedAssets/RightPanelEngine.js"></script>
+	<link rel="stylesheet" href="../SharedAssets/RightPanelStyling.css">
+</head>
+<body style="visibility:hidden">	
+	<a data-ajax="false" id="accessibility-1" href="#meeting-form-box">Skip to Binder Details</a>
+	<a data-ajax="false" id="accessibility-2" href="#tabs-form-box">Skip to Binder Bands</a>
+	<div data-role="page" class="jqm-panel-page" data-quicklinks="true" id="main-body">
+		<header data-role="header" class="jqm-header">
+			<a data-ajax="false" href="BinderList.html" id="left-button" class="ui-link ui-btn ui-icon-arrow-l ui-btn-icon-left ui-btn-inline ui-shadow ui-corner-all">Return to Binder List</a>
+			<h1 style="overflow:visible">
+				<span class="app-name">BinderBuilder</span>
+				<span id="meeting-name">New Meeting</span> (<span id="meeting-identifier">New</span>)
+			</h1>
+			<a data-ajax="false" href="javascript:void(0)" id="right-button" class="ui-link ui-btn ui-icon-check ui-btn-icon-right ui-btn-inline ui-shadow ui-corner-all">Publish to MeetingFlix</a>
+		</header>		
+		<div id="form-container" data-role="content">
+			<div id="top-most" style="text-align:center;padding:1em;z-index:0">
+				<p id="page-intro"></p>
+				<div id="meeting-form-box" tabindex="-1">
+					<h2>Binder Details</h2>
+					<div class="meeting-details-field">
+						<label for="formSubject">Binder Title:</label>
+						<div class="inputwrapper">
+							<input type="text" placeholder="Binder Title" name="formSubject" id="formSubject" value="" />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formLocation">Location:</label>
+						<div class="inputwrapper">
+							<input type="text" placeholder="Location" name="formLocation" id="formLocation" value="" />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formDate">Date:</label>
+						<div class="inputwrapper">
+							<input type="date" placeholder="M/D/YYYY" name="formDate" id="formDate" data-role="datebox" data-options='{"mode": "calbox", "useHeader": false}' />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formStartTime">Start Time:</label>
+						<div class="inputwrapper">
+							<input type="date" placeholder="HH:MM AM/PM" name="formStartTime" id="formStartTime" data-role="datebox" data-options='{"mode": "timebox", "useHeader": false}' />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formEndTime">End Time:</label>
+						<div class="inputwrapper">
+							<input type="date" placeholder="HH:MM AM/PM" name="formEndTime" id="formEndTime" data-role="datebox" data-options='{"mode": "timebox", "useHeader": false}' />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formNotes">Agenda Note:</label>
+						<div class="inputwrapper">
+							<input type="text" placeholder="Notes" name="formNotes" id="formNotes" value="" />
+						</div>
+					</div>
+					<div class="meeting-details-field">
+						<label for="formMemo">Memo:</label>
+						<div id="meeting-memo" class="inputwrapper">
+						</div>
+					</div>
+					<a id="meeting-save-button" class="meeting-save-update-button" href="javascript:void(0)" data-role="button" data-icon="check" data-mini="true">Save</a>
+					<a id="meeting-update-button" class="meeting-save-update-button" href="javascript:void(0)" data-role="button" data-icon="check" data-mini="true">Save Updates</a>
+				</div>
+				
+				<div id="tabs-form-box" tabindex="-1">
+					<h2 id="binder-bands">Bands</h2>
+					<ul id="agenda-items-list"></ul>
+					<a style="width:50%;margin:0 auto;margin-top:3em;" href="javascript:void(0)" onclick="addNewAgendaItem()" data-role="button" data-icon="plus" data-mini="true">Add a Band</a>
+				</div>
+			</div>
+			<div id="modalProtection" class="blurit" style="display:none;z-index:10"></div>
+			<div id="popupSubmission" class="ui-corner-all" style="z-index:20" tabindex="-1">
+				<div id="popupSubmissionBox" style="padding:1.5em">
+					<a id="closeSubmission" href="javascript:void(0)" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right" style="background-color: transparent !important;position:absolute;top:0;right:1em;">Close</a>
+					<div id="popupSubmissionHeader">
+					</div>
+					<div id="popupSubmissionContent"></div>
+				</div>
+			</div>
+			<div id="popupSendToCabFlix" class="ui-corner-all" style="z-index:20">
+				<div id="popupSendToCabFlixBox" style="padding:1.5em">
+					<a id="closeSendToCabFlix" href="javascript:void(0)" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right" style="background-color: transparent !important;position:absolute;top:0;right:1em;">Close</a>
+					<div id="popupSendToCabFlixHeader">
+						<h3>Publish This Meeting to MeetingFlix</h3>
+					</div>
+					<div id="popupSendToCabFlixContent"></div>
+				</div>
+			</div>
+		</div>
+		<!-- Right Panel (Submission Details) -->
+		<aside data-role="panel" id="submission-info-panel" data-position-fixed="true" data-position="right" data-display="overlay" data-theme="b">
+			<a href="#" id="right-panel-close" data-rel="close" class="ui-btn ui-btn-left ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-right ui-btn-inline">Close</a>
+			<div id="submission-info-panel-inner">
+			</div>
+		</aside><!-- /#main-right-panel -->
+	</div>
+	<div id="dialog-saved" title="Changes were Saved">
+		<p>Your changes were successfully saved.</p>
+	</div>
+	<div id="dialog-saved-new-meeting" title="The New Meeting was Saved">
+		<p>Your meeting has now been created. You can make changes to the meeting itself or start working on the bands and corresponding tiles below.</p>
+	</div>
+</body>
+</html>

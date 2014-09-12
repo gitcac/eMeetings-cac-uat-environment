@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>BinderBuilder</title>
+		
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="apple-touch-icon" sizes="76x76" href="BinderBuilderAssets/img/core/touch-icon-ipad.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="BinderBuilderAssets/img/core/touch-icon-ipad-retina.png">
+		
+		<script src="BinderBuilderAssets/js/catchIE.js"></script>
+		<script src="BinderBuilderAssets/js/jquery-2.1.1.min.js"></script>
+		<script src="BinderBuilderAssets/js/jquery.SPServices-2014.01.min.js"></script>
+		
+		<style type="text/css">
+			body {
+				font-size: 62.5%;
+				text-align: center;
+				font-family: Verdana, Geneva, sans-serif;
+				background-color: #3f5064;
+			}
+			#splash-box {
+				position: absolute;
+				width: 700px;
+				height: 590px;
+				top: 50%;
+				left: 50%;
+				margin-left: -350px;
+				/* Negative half of width. */
+				margin-top: -295px;
+				/* Negative half of height. */
+				text-align: left;
+			}
+			#ont-logo {
+				position: relative;
+				top: 0;
+			}
+			h1 {
+				text-shadow: 0 0 2px rgba(0,0,0,1);
+				font-size: 2.6em;
+				text-align: center;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				color: #fff;
+				padding: 6px 0;
+				margin: 0;
+			}
+			#content-box {
+				opacity: 0.95;
+				font-size: 1.3em;
+				padding: 10px 20px;
+				background-color: #FFF;
+				color: #222;
+				border-radius: 10px;
+			}
+			#enter-button {
+				margin: 50px 0 65px;
+			}
+			#enter-button a {
+				font-size: 1.3em;
+				border-radius: 3px;
+				text-decoration: none;
+				padding: 20px 50px;
+				background: #038442 right no-repeat;
+				color: #FFF;
+			}
+			#enter-button a:hover,#enter-button a:active,#enter-button a:focus {
+				background-color: #0073ab;
+				-webkit-transition-duration: .3s;
+				-webkit-transition-timing-function: ease-out;
+				-moz-transition-duration: .3s;
+				-moz-transition-timing-function: ease-out;
+			}
+			#disclaimer {
+				font-size: .9em;
+			}
+			.center {
+				text-align: center;
+			}
+			#user-information {
+				float: right;
+				margin: 8px 8px 20px 20px;
+				width: 130px;
+				font-size: .85em;
+				text-align: center;
+				line-height: 1.2em;
+			}
+			#user-information p {
+				margin-top: .2em;
+			}
+			.avatar {
+				margin: 0 auto;
+				width: 100px;
+				height: 100px;
+			}
+			#user-information strong {
+				line-height: 1.6em;
+			}
+			#cover-video {
+			    position: fixed;
+			    background-color: #3f5064;
+			    top: 50%;
+			    left: 50%;
+			    min-width: 100%;
+			    min-height: 100%;
+			    width: auto;
+			    height: auto;
+			    z-index: -100;
+			    transform: translateX(-50%) translateY(-50%);
+			}
+		</style>
+		
+	    <script>
+	    	// Set user avatar and info
+			$(document).ready(function() {
+				var online = navigator.onLine;
+				if (online){		
+					// Get current AD User
+					var CurrentUser = $().SPServices.SPGetCurrentUser({
+						fieldNames: ["FirstName", "LastName", "JobTitle"],
+						debug: false
+					});
+					$.when(CurrentUser).done(function() {
+						document.getElementById("user-fullname").innerHTML = CurrentUser.FirstName + " " + CurrentUser.LastName;
+						document.getElementById("user-title").innerHTML = CurrentUser.JobTitle;
+					});
+				}
+				// Offline
+				else {
+					document.getElementById("user-information").style.display = "none";
+				}
+			});	
+		</script>
+	</head>
+	<body>
+		<video autoplay loop id="cover-video">
+			<source src="BinderBuilderAssets/vid/meeting.mp4" type="video/mp4">
+		</video>
+		<div id="splash-box">
+			<img id="ont-logo" src="BinderBuilderAssets/img/splash/ontario.png" alt="Ontario Logo">
+			<h1>Welcome to <em>BinderBuilder</em></h1>
+			<div id="content-box">
+				<div id="user-information">
+					<img id="user-image" alt="" class="avatar" src="BinderBuilderAssets/img/splash/default-user.png">
+					<p><strong id="user-fullname"></strong><br><span id="user-title"></span></p>
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunte.</p>
+				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Sed ut perspiciatis, totam rem vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugitveritatis et quasie.</p>
+				<p>Aenean blandit ante non ligula eleifend, sit amet varius suscipit id lobortis at, pellentesque eget lacus. Morbi posuere mollise.</p>
+				<div id="enter-button" class="center">
+					<a href="BinderList.html" title="Proceed with BinderBuilder">Enter</a>
+				</div>
+				<p id="disclaimer"><em><strong>Disclaimer</strong>: Please note that BinderBuilder contains confidential documents covered by the Oaths of Office.</em></p>
+			</div><!-- /#content-box -->
+		</div><!-- /#splash-box -->
+	</body>
+</html>

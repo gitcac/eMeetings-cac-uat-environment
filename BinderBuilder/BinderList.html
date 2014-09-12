@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>Binders | BinderBuilder</title>
+	
+    <link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="BinderBuilderAssets/css/jquery.mobile-changes.css">
+    <link rel="stylesheet" href="BinderBuilderAssets/css/binderbuilder.css">
+
+	<style type="text/css">
+			#binders #listing {
+				margin: 40px 0;
+				padding: 0;
+			}
+			#binders #listing li {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				border-bottom: 1px solid #C5C5C5;
+				overflow: hidden;
+			}
+			#binders #listing li:first-child {
+				border-top: 1px solid #C5C5C5;
+			}
+			#binders #listing a,
+			#binders #listing a:link,
+			#binders #listing a:visited {
+				margin: 0 ;
+				width: 100%;
+				position:relative;
+				padding: 20px 10px;
+				display: inline-block;
+				color: #5a5a5a;
+				text-decoration: none;
+				margin-bottom: -10px;
+				border-bottom:1px solid #C5C5C5;
+			}
+			.newbinder{
+				margin-top:5em !important;
+				border-top:1px solid #C5C5C5;
+			}
+			#binders #listing a:hover,
+			#binders #listing a:focus,
+			#binders #listing a:active {
+				background-color: #DADADA;
+				color: #000;
+			}
+			#binders #listing .type {
+				display: inline-block;
+				min-width: 100px;
+				margin: 0 20px 0 0;
+				font-weight: bold;
+				float: left;
+				line-height: 1.6em;
+			}
+			#binders #listing .info {
+				display: inline-block;
+				float: left;
+				line-height: 1.6em;
+			}
+			.sample {
+				color: #3879D9;
+			}
+			#binders #listing a:hover .sample,
+			#binders #listing a:hover .sample,
+			#binders #listing a:hover .sample {
+				color: #000;
+			}
+			#left-button {
+			  padding: 1em 4em 1em 5em;
+			}
+			.archive-button{
+				position:absolute;
+				right:3em;
+				top:2.5em;
+			}
+			.archive-button img{
+				width:2em;
+			}
+		</style>
+	
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+	
+	<script src="BinderBuilderAssets/js/jquery-2.1.1.min.js"></script>
+    <script src="BinderBuilderAssets/js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="BinderBuilderAssets/js/angular.min.js?v=1.2.16"></script>
+	<script src="BinderBuilderAssets/js/jquery.SPServices-2014.01.min.js"></script>
+	
+	<script>
+	$(document).ready(function() {
+		$().SPServices({
+			operation: "GetListItems",
+			async: false,
+			listName: "Cabinet Meeting",
+			CAMLViewFields: "<ViewFields Properties='True' />",
+			completefunc: function (xData, Status) {
+				$(xData.responseXML).SPFilterNode("z:row").each(function() {
+					var binderitem = 	'<a href="./Binder.html?id=' + $(this).attr("ows_ID") + '" data-ajax="false">\
+											<span class="type">' + $(this).attr("ows_Meeting_x0020_Status") + '</span>\
+											<span class="info">\
+												<strong>' + $(this).attr("ows_Title") + '</strong><br />\
+												' + $(this).attr("ows_Location") + '<br />\
+												<em class="sample">' + pullDate($(this).attr("ows_Meeting_x0020_Date")) + ' - ' + pullTime($(this).attr("ows_Meeting_x0020_Start_x0020_Time")) + ' - ' + pullTime($(this).attr("ows_Meeting_x0020_End_x0020_Time")) + '</em>\
+											</span>\
+											<div class="archive-button" title="Archive and Delete" id="archive-' + $(this).attr("ows_ID") + '"><img src="BinderBuilderAssets/img/core/trashcan.png" alt="Archive and Delete" /></div>\
+										</a>';
+					$("#binders-list").append(binderitem);
+					$(document.body).on('click','#archive-'+$(this).attr("ows_ID"),function(){
+						alert("call to archieve/delete function will go here....");
+					});
+				});
+			}
+		});
+		$('body').css('visibility', 'visible');
+	});
+	/*	Function: 		pullDate(x)
+		Description: 	Takes a Sharepoint DateTime (x) and passes back the date in form MM/DD/YYYY.
+						Parses off 0 from date or month if applicable */
+	function pullDate(x){
+		//2014/06/24 to 6/24/2014
+		return parseInt(x.substring(5,7)) + "/" + parseInt(x.substring(8,10)) + "/" + x.substring(0,4);
+	}
+	/*	Function: 		pullTime(x)
+		Description: 	Takes a Sharepoint DateTime (x) and passes back the time in form HH:MM (A/P)M.
+						DOES NOT Parse off 0 from Hour/Minute if applicable */
+	function pullTime(x){
+		var hours;
+		var tod;
+		
+		x = x.substring(11,x.length-3);
+		hours = parseInt(x.substring(0,2));
+
+		//midnight
+		if (hours == 0){
+			hours = 12;
+			x = (hours + x.substring(2,x.length));
+			tod = " AM";
+		}
+		//am
+		else if (hours < 12){
+			tod = " AM";
+		}
+		//noon
+		else if (hours == 12){
+			tod = " PM";
+		}
+		//pm
+		else {
+			tod = " PM";
+			hours = hours - 12;
+			x = ((hours < 10) ? ("0" + hours) : hours) + x.substring(2,x.length);
+		}
+		
+		return x + tod;
+	}
+	</script>
+</head>
+<body style="visibility:hidden">	
+	<div class="jqm-panel-page">
+	
+		<header data-role="header" class="jqm-header">
+			<a href="BinderBuilder.html" data-ajax="false" id="left-button" class="ui-link ui-btn ui-icon-arrow-l ui-btn-icon-left ui-btn-inline ui-shadow ui-corner-all">Exit</a>
+			<h1 style="overflow:visible">
+				<span class="app-name">BinderBuilder</span> 
+			</h1>	
+		</header>
+
+		<!-- Main Page Build -->
+		<div id="binders" role="main" class="ui-content jqm-content">
+			<h2>Binders</h2>
+			<ul id="listing">
+				<li id="binders-list">
+					
+				</li>
+			</ul>
+			<a style="width:20%;margin-top:3em;" data-ajax="false" href="Binder.html" data-role="button" data-icon="plus" data-mini="true">Create a New Binder</a>
+		</div><!-- /main -->
+
+	</div><!-- /page -->
+</body>
+</html>

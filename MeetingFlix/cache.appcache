@@ -1,0 +1,47 @@
+CACHE MANIFEST
+# 2014-08-01 v0.0.21
+
+MeetingFlixAssets/img/splash/splash-bg.jpg
+MeetingFlixAssets/img/splash/ontario.png
+MeetingFlixAssets/js/jquery-2.1.1.min.js 
+MeetingFlixAssets/css/jquery.mobile-1.4.2.min.css
+MeetingFlixAssets/css/jquery.mobile-changes.css
+MeetingFlixAssets/css/cabflix.css
+MeetingFlixAssets/js/jquery.mobile-1.4.2.min.js
+MeetingFlixAssets/js/angular.min.js?v=1.2.16
+MeetingFlixAssets/js/meetingList.app.js
+MeetingFlixAssets/js/meetingList.services.js
+MeetingFlixAssets/js/meetingList.controllers.js
+MeetingFlixAssets/fonts/OpenSans-Bold.woff
+MeetingFlixAssets/fonts/OpenSans-Light.woff
+MeetingFlixAssets/css/images/ajax-loader.gif
+../SharedAssets/JSONFiles/MeetingManifest.json.safe
+MeetingNotFound.html
+MeetingFlixAssets/css/touchcarousel.css
+MeetingFlixAssets/vid/meeting.mp4
+MeetingFlixAssets/img/splash/default-user.png
+MeetingFlixAssets/js/catchIE.js
+MeetingFlixAssets/css/touchcarousel-changes.css
+MeetingFlixAssets/js/jquery.touchcarousel-1.2.min.js
+MeetingFlixAssets/js/jquery.SPServices-2014.01.min.js
+MeetingFlixAssets/js/jquery.nicescroll.js
+MeetingFlixAssets/js/meetingflix.app.js
+MeetingFlixAssets/js/meetingflix.services.js
+MeetingFlixAssets/js/meetingflix.controllers.js
+../SharedAssets/RightPanelEngine.js
+../SharedAssets/thread.privatedocuments.js
+../SharedAssets/img/core/eye-icon.png
+../SharedAssets/img/core/pdf-icon.png
+../SharedAssets/img/core/word-icon.png
+../SharedAssets/img/core/pp-icon.png
+../SharedAssets/img/core/sprite.png
+../SharedAssets/img/core/grab.png
+../SharedAssets/img/core/grabbing.png
+../SharedAssets/RightPanelStyling.css
+
+NETWORK:
+*
+
+FALLBACK:
+MeetingsList.html MeetingsListOffline.html
+Meeting.html MeetingOffline.html

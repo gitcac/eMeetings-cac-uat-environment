@@ -1,0 +1,119 @@
+/* --- Common Right Panel (Submission Details) Styling --- */
+#submission-content {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    overflow-y: scroll;
+	overflow-x:hidden;
+    -webkit-overflow-scrolling: touch;
+	width: 92%;
+	padding: 0 4% 0 4%;
+	text-align: left;
+}
+#submission-content h2:first-of-type {
+	color: #e9ddff;
+	margin: .5em 0 1.4em 0;
+	padding: .5em .5em .5em .2em;
+	border-top: 2px solid #5C487F;
+	border-bottom: 2px solid #5C487F;
+	background-color: #000;
+}
+#submission-content .css-table h3,
+#submission-content .css-table h4 {
+	margin: 0;
+	padding: 0;
+	font-size: 1.5rem;
+	color: #FFFDDD;
+}
+#submission-content .css-table ul li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#submission-content p {
+	margin: 1em 0;
+}
+.css-table {
+	margin: 1em 0;
+	display: table;
+    border-collapse: collapse;
+}
+.css-table-row {
+	display: table-row;
+}
+.css-table-cell {
+	display: table-cell;
+	border: 1px dotted #BCBCBC;
+	padding: .3em .4em;
+}
+.css-table-cell:first-of-type {
+	width: 12em;
+}
+#submission-content h2,
+#submission-content h3,
+#submission-content h4,
+#submission-content h5,
+#submission-content h6 {
+	margin: 1.5em 0 1em 0;
+	padding: 0;
+	color: #e9ddff;
+}
+#submission-content .title-documents {
+	padding: .5em 0;
+	border-bottom: 2px solid #5C487F;
+}
+#documents-area {
+	padding-bottom: 5em;
+}
+#documents-area h4 {
+	color: #FFFDDD;
+	margin: 2em 0 .5em 0
+}
+.doc-list li {
+	list-style-type: none;
+	padding: 0 0 0 8px;
+	margin: 0;
+}
+.doc-list li a span {
+	color: #ACACAD !important;
+	padding-left: .5em;
+	display: inline-block;
+	text-decoration: none !important;
+}
+.doc-list li a {
+	display: inline-block;
+	padding: 8px 0 8px 30px;
+	margin: 5px 0;
+}
+.doc-list li:nth-child(even) {
+	background-color: #292832;
+}
+.doc-list li:nth-child(odd) {
+	background-color: #33313d;
+}
+.doc a {
+	background: url('img/core/word-icon.png') no-repeat 0 8px;
+	background-size: 20px 20px;
+}
+.pp a {
+	background: url('img/core/pp-icon.png') no-repeat 0 8px;
+	background-size: 20px 20px;
+}
+.pdf a {
+	background: url('img/core/pdf-icon.png') no-repeat 0 8px;
+	background-size: 20px 20px;
+}
+.eye a {
+	background: url('img/core/eye-icon.png')  no-repeat 0 8px;
+	background-size: 20px 20px;
+}
+.other a {
+	background: url('img/core/other-icon.png')  no-repeat 0 8px;
+	background-size: 20px 20px;
+}
+.xls a {
+	background: url('img/core/excel-icon.png')  no-repeat 0 8px;
+	background-size: 20px 20px;
+}

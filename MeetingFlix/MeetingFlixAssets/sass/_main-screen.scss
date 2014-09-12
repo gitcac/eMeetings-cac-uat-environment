@@ -1,0 +1,671 @@
+﻿/*!
+* MeetingFlix CSS
+*
+* Regan Weston and Husain Fazal
+* Central Agencies Cluster
+*
+*/
+
+/* --- Global Variables
+-----------------------------------------------------------------------------------------------------------*/
+$font-stack-normal:	'Open Sans Normal', Helvetica, sans-serif;
+$font-stack-light: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+/* 'Open Sans Light', Helvetica, sans-serif; */
+$font-meetingflix: 'Titillium-Regular', 'Arial Black', Gadget, sans-serif;
+
+$font-m: 1.25rem;	/* =12.5px */
+$font-l: 1.4rem;		/* = 14px */
+$font-xl: 1.6rem;	/* =16px */
+$font-xxl: 2.2rem;	/* =22px */
+$font-xxxl: 3.6rem;	/* =36px */
+
+$left-panel-size: 34em;
+$right-panel-size: 40em;
+
+$tile-width: 170px;
+$tile-height: 230px;
+
+$bg-colour-dark: #212028;
+$main-colour: #6441A5;
+$main-colour-light: #CCB1FE;
+$main-colour-dark: #37235A;
+$main-colour-bright: #822FF7;
+
+/* --- General
+-----------------------------------------------------------------------------------------------------------*/
+html {
+	font-size: 62.5%;
+	height: 100%;
+}
+body {
+	font: $font-l $font-stack-normal;
+	font-weight: 300;
+	word-break: normal;
+}
+h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.5em;
+}
+h3 {
+	font-size: 1.4em;
+}
+h4, h5, h6 {
+	font-size: 1.3em;
+}
+li {
+	margin-left: 1.5em;
+}
+p {
+	margin: 1em 0;
+}
+
+/* --- Header
+-----------------------------------------------------------------------------------------------------------*/
+#main-page {
+	background-color: #e9e9e9;
+}
+/* <h1> tag - page title */
+.ui-header,
+.ui-footer {
+	border: 0;
+}
+#main-header .ui-bar-b {
+	border: 3px solid $main-colour;
+}
+.ui-header .ui-title {
+	font: $font-xxl $font-meetingflix;
+	padding: .75rem 0;
+	text-shadow: .3rem .3rem .3rem rgba(0, 0, 0, 1);
+}
+/* <h2> tag - meeting title */
+.ui-title-date-time {
+	font-size: .9em;
+	color: $bg-colour-dark;
+}
+/* Notifications (Main Menu) */
+#notifications-count {
+	background-color: #000;
+	padding: .2rem .65rem;
+	border-radius: 50%;
+	margin-right: .4rem;
+}
+
+/* --- Navigation Bar
+-----------------------------------------------------------------------------------------------------------*/
+#main-nav {
+	border-bottom: 1px solid #ddd;
+}
+#main-nav .ui-state-disabled {
+	opacity: .66; /* AODA */
+}
+#main-nav .ui-btn.ui-btn-active {
+	background-color: $bg-colour-dark;
+}
+/* 1 - Navigation Grid - 25% 25% 50% */
+.custom-grid-1 .ui-block-a,
+.custom-grid-1 .ui-block-b,
+.custom-grid-1 .ui-block-c {
+	width: 100%;
+	float: none;
+}
+.custom-grid-1 .ui-block-a,
+.custom-grid-1 .ui-block-b {
+  float: left;  
+  width: 24.925%;
+}
+.custom-grid-1 .ui-block-c {
+  float: left;
+  width: 49.95%;
+}
+#main-nav a {
+	padding: 1.3rem;
+}
+/* --- Bands
+-----------------------------------------------------------------------------------------------------------*/
+#main-content {
+	background-image: url(../img/core/texture.png);
+	background-repeat: repeat;
+}
+#main-content article {
+	margin: 35px 0;
+}
+#main-content article:first-of-type {
+	margin-top: 0;
+}
+/* <h3> tag - band title */
+.band-title {
+	font-weight: normal;
+	margin: 1.5rem 0 1rem 0;
+}
+.touchcarousel .touchcarousel-container {
+  list-style-type: decimal;
+  text-align: center;
+}
+ $tile-border-width: 2px; /* thickness of border */
+.ui-mobile .item-block img {
+  box-shadow: 10px 10px 10px 0px rgba(30, 30, 30, 0.2);
+  border-radius: 3px;
+  border:  $tile-border-width solid #FFF;
+}
+.ui-mobile .touched a img {
+	box-shadow: 10px 10px 10px 0px rgba(93,77,124, 0.4);
+	border:  $tile-border-width solid $main-colour-bright;
+}
+.carousel-image-and-text {
+  width: 100%;
+  height: round($tile-height+($tile-height * 0.3));
+  margin: 0 auto; 
+} 
+.carousel-image-and-text .arrow-holder {
+  height: $tile-height;
+}   
+.carousel-image-and-text .touchcarousel-item {
+  margin-left: round($tile-width * 0.25); /* distance between tiles */
+  width: $tile-width;
+  height: $tile-height;
+}
+.carousel-image-and-text .item-block {
+	width: $tile-width;
+	display: block;
+}
+/* Tile Text */
+.carousel-image-and-text a.item-block p {
+	display: block;
+	float: left;
+	position: relative;
+	width: $tile-width;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 7;
+	-webkit-box-orient: vertical;
+	
+	overflow: hidden;
+	padding: 0.5rem 0;
+	margin: round($tile-height * 0.6 * -1) 0 0 $tile-border-width;
+	height: auto;
+	max-height: round($tile-height * 0.5);
+	background: rgba(0,7,10, 0.7);
+	
+	font-family: $font-stack-light;
+	color: #FFF;
+	text-shadow: none;
+	font-weight: normal;
+	font-size: 1.4rem;
+	line-height: 1.7rem;
+	text-overflow: ellipsis;
+}
+/* Tile alerts - New/Updated/Conflict/In-Camera */
+.carousel-image-and-text a.item-block .tile-header:first-of-type {
+	display: block;
+	float: left;
+	position: relative;
+	width: $tile-width;
+	overflow: hidden;
+	margin: round(($tile-height + $tile-border-width) * -1) 0 0 $tile-border-width;
+	height: auto;
+	max-height: round($tile-height * 0.4);
+}
+.carousel-image-and-text a.item-block .tile-header span {
+	background-color: $main-colour-bright;
+	color: #FFF;
+	font-family: $font-stack-light;
+	text-shadow: none;
+	font-weight: normal;
+	font-size: 1.2rem;
+	text-decoration: none;
+	display: block;
+	padding: 0.2rem 0;
+}
+.touchcarousel img.withdrawn-tile,
+.touchcarousel img.coi-tile,
+.touchcarousel img.ice-tile {
+	opacity: 0.6;
+}
+.carousel-image-and-text a.item-block abbr {
+	color: #e9ddff;
+	font-size:  1.1rem;
+}
+.carousel-image-and-text .item-block img {
+	width: $tile-width;
+	height: $tile-height;    
+	padding: 0;
+	margin: 0;
+	float: left;
+	position: relative;
+	display: block;
+}
+.touchcarousel .nonagendaband li {
+	list-style-type: none;
+}
+/* Bottom Scrollbar */
+.carousel-image-and-text .scrollbar-holder {
+	background: #CED7DB; /* light grey */
+	bottom: 0;
+	height: 3px;
+	left: 0;
+	right: 0;
+	z-index: 20;
+}
+.carousel-image-and-text .scrollbar {
+	background-color: $main-colour !important;
+	bottom: 0;
+}
+
+/* --- Agenda Panel
+-----------------------------------------------------------------------------------------------------------*/
+#agenda-panel-inner {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+	overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+#agenda-panel .ui-title {
+	color: #FFF;
+}
+#agenda-panel .ui-panel-inner {
+	background-color: #000;
+	padding: 2rem;
+}
+#agenda-content {
+	width: 91%;
+	padding: 0 5% 0 4%;
+}
+.agenda-items {
+	padding: 1em 0;
+}
+.agenda-items strong {
+	padding: .5rem 0;
+	background-color: #1a191f;
+	line-height: 2.4rem;
+	border-radius: .5rem;
+}
+.agenda-items li {
+	padding: .5rem;
+}
+p.agenda-tile-agenda-desc {
+	margin: 0;
+}
+
+/* --- jQuery Mobile Overrides
+-----------------------------------------------------------------------------------------------------------*/
+/* Scalable Font Sizes - AODA
+-----------------------------------------------------------------------------------------------------------*/
+.ui-mini,
+.ui-header .ui-btn,
+.ui-footer .ui-btn,
+.ui-header .ui-controlgroup .ui-btn-icon-notext,
+.ui-footer .ui-controlgroup .ui-btn-icon-notext,
+.ui-header .ui-btn-left,
+.ui-header .ui-btn-right,
+.ui-navbar li .ui-btn,
+.ui-li-count {
+	font-size: $font-m;
+}
+.ui-listview > .ui-li-divider,
+input.ui-slider-input,
+.ui-slider-switch.ui-mini .ui-slider-label,
+.ui-mini .ui-input-text input,
+.ui-mini .ui-input-search input,
+.ui-input-text.ui-mini input,
+.ui-input-search.ui-mini input,
+.ui-mini textarea.ui-input-text,
+textarea.ui-mini {
+	font-size: $font-l;
+}
+.ui-mobile label,
+div.ui-controlgroup-label,
+.ui-btn,
+.ui-mini.ui-btn-icon-notext,
+.ui-mini .ui-btn-icon-notext,
+.ui-header .ui-btn-icon-notext,
+.ui-footer .ui-btn-icon-notext,
+.ui-mini .ui-controlgroup-label,
+.ui-slider-switch .ui-slider-label {	
+	font-size: $font-xl;
+}
+.ui-slider-popup {
+	font-size: $font-xxxl;
+}
+
+/* jQuery Mobile Panels
+-----------------------------------------------------------------------------------------------------------*/
+.ui-panel {
+  width: $left-panel-size;
+}
+.ui-panel.ui-panel-position-right {
+  width: $right-panel-size;
+}
+.ui-panel.ui-panel-closed {
+  width: 0;
+}
+.ui-panel-position-left {
+  left: -$left-panel-size;
+}
+.ui-panel-animate.ui-panel-page-content-position-left {
+    left: 0;
+    right: 0;
+    -webkit-transform: translate3d($left-panel-size,0,0);
+    -moz-transform: translate3d($left-panel-size,0,0);
+    transform: translate3d($left-panel-size,0,0);
+}
+.ui-panel-animate.ui-panel-position-left.ui-panel-display-overlay,
+.ui-panel-animate.ui-panel-position-left.ui-panel-display-push {
+  -webkit-transform: translate3d(-$left-panel-size, 0, 0);
+  -moz-transform: translate3d(-$left-panel-size, 0, 0);
+  transform: translate3d(-$left-panel-size, 0, 0);
+}
+.ui-panel-position-right {
+  right: -$right-panel-size;
+}
+.ui-panel-animate.ui-panel-position-right.ui-panel-display-overlay,
+.ui-panel-animate.ui-panel-position-right.ui-panel-display-push {
+  -webkit-transform: translate3d($right-panel-size, 0, 0);
+  -moz-transform: translate3d($right-panel-size, 0, 0);
+  transform: translate3d($right-panel-size, 0, 0);
+}
+.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open,
+.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open,
+.ui-panel-dismiss-position-left.ui-panel-dismiss-open {
+  left: $left-panel-size;
+  right: -$right-panel-size;
+}
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal,
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+  -webkit-transform: translate3d($left-panel-size, 0, 0);
+  -moz-transform: translate3d($left-panel-size, 0, 0);
+  transform: translate3d($left-panel-size, 0, 0);
+}
+.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open,
+.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open,
+.ui-panel-dismiss-position-right.ui-panel-dismiss-open {
+  left: -$left-panel-size;
+  right: $right-panel-size;
+}
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
+.ui-panel-animate.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal,
+.ui-panel-animate.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+  -webkit-transform: translate3d(-$right-panel-size, 0, 0);
+  -moz-transform: translate3d(-$right-panel-size, 0, 0);
+  transform: translate3d(-$right-panel-size, 0, 0);
+}
+@media (min-width: 55em) {
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-push.ui-panel-content-fixed-toolbar-position-left,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-reveal.ui-panel-content-fixed-toolbar-position-left,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-push.ui-panel-content-wrap-position-left,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-reveal.ui-panel-content-wrap-position-left {
+    margin-right: $right-panel-size;
+  }
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-push.ui-panel-content-fixed-toolbar-position-right,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-reveal.ui-panel-content-fixed-toolbar-position-right,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-push.ui-panel-content-wrap-position-right,
+  .ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-reveal.ui-panel-content-wrap-position-right {
+    margin-left: $left-panel-size;
+  }
+}
+/* jQuery Mobile Themes
+-----------------------------------------------------------------------------------------------------------*/
+/* Theme A Overrides - Custom Light
+-----------------------------------------------------------------------------------------------------------*/
+/* --- Links --- */
+.ui-page-theme-a a,
+html .ui-bar-a a,
+html .ui-body-a a,
+html body .ui-group-theme-a a,
+/* Visited */
+.ui-page-theme-a a:visited,
+html .ui-bar-a a:visited,
+html .ui-body-a a:visited,
+html body .ui-group-theme-a a:visited,
+/* Hover */
+.ui-page-theme-a a:hover,
+html .ui-bar-a a:hover,
+html .ui-body-a a:hover,
+html body .ui-group-theme-a a:hover,
+/* Active */
+.ui-page-theme-a a:active,
+html .ui-bar-a a:active,
+html .ui-body-a a:active,
+html body .ui-group-theme-a a:active,
+/* Focus */
+.ui-page-theme-a a:focus,
+html .ui-bar-a a:focus,
+html .ui-body-a a:focus,
+html body .ui-group-theme-a a:focus {
+	color: $main-colour;
+}
+/* --- Active button --- */
+.ui-page-theme-a .ui-btn.ui-btn-active,
+html .ui-bar-a .ui-btn.ui-btn-active,
+html .ui-body-a .ui-btn.ui-btn-active,
+html body .ui-group-theme-a .ui-btn.ui-btn-active,
+html head + body .ui-btn.ui-btn-a.ui-btn-active,
+/* Active checkbox icon */
+.ui-page-theme-a .ui-checkbox-on:after,
+html .ui-bar-a .ui-checkbox-on:after,
+html .ui-body-a .ui-checkbox-on:after,
+html body .ui-group-theme-a .ui-checkbox-on:after,
+.ui-btn.ui-checkbox-on.ui-btn-a:after,
+/* Active flipswitch background */
+.ui-page-theme-a .ui-flipswitch-active,
+html .ui-bar-a .ui-flipswitch-active,
+html .ui-body-a .ui-flipswitch-active,
+html body .ui-group-theme-a .ui-flipswitch-active,
+html body .ui-flipswitch.ui-bar-a.ui-flipswitch-active,
+/* Active slider track */
+.ui-page-theme-a .ui-slider-track .ui-btn-active,
+html .ui-bar-a .ui-slider-track .ui-btn-active,
+html .ui-body-a .ui-slider-track .ui-btn-active,
+html body .ui-group-theme-a .ui-slider-track .ui-btn-active,
+html body div.ui-slider-track.ui-body-a .ui-btn-active {
+	background-color: $main-colour /*{a-active-background-color}*/;
+	border-color: $main-colour-dark /*{a-active-border}*/;
+	color: #FFF /*{a-active-color}*/;
+	text-shadow: 0 /*{a-active-shadow-x}*/ 1px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #444444 /*{a-active-shadow-color}*/;
+}
+/* Active radio button icon */
+.ui-page-theme-a .ui-radio-on:after,
+html .ui-bar-a .ui-radio-on:after,
+html .ui-body-a .ui-radio-on:after,
+html body .ui-group-theme-a .ui-radio-on:after,
+.ui-btn.ui-radio-on.ui-btn-a:after {
+	border-color: $main-colour /*{a-active-background-color}*/;
+}
+/* Focus */
+.ui-page-theme-a .ui-btn:focus,
+html .ui-bar-a .ui-btn:focus,
+html .ui-body-a .ui-btn:focus,
+html body .ui-group-theme-a .ui-btn:focus,
+html head + body .ui-btn.ui-btn-a:focus,
+/* Focus buttons and text inputs with div wrap */
+.ui-page-theme-a .ui-focus,
+html .ui-bar-a .ui-focus,
+html .ui-body-a .ui-focus,
+html body .ui-group-theme-a .ui-focus,
+html head + body .ui-btn-a.ui-focus,
+html head + body .ui-body-a.ui-focus {
+	-webkit-box-shadow: 0 0 12px $main-colour /*{a-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px $main-colour /*{a-active-background-color}*/;
+	box-shadow: 0 0 12px $main-colour /*{a-active-background-color}*/;
+}
+/* Theme B Overrides - Custom Dark
+-----------------------------------------------------------------------------------------------------------*/
+.ui-bar-b,
+.ui-page-theme-b .ui-bar-inherit,
+html .ui-bar-b .ui-bar-inherit,
+html .ui-body-b .ui-bar-inherit,
+html body .ui-group-theme-b .ui-bar-inherit {
+	background-color: $main-colour /*{B-bar-background-color}*/;
+	border-color: $main-colour-dark /*{B-bar-border}*/;
+	color: #FFF /*{B-bar-color}*/;
+	text-shadow: 0 /*{B-bar-shadow-x}*/ 1px /*{B-bar-shadow-y}*/ 0 /*{B-bar-shadow-radius}*/ #111 /*{B-bar-shadow-color}*/;
+}
+
+/* Body: Read-only lists, text inputs, collapsible content */
+.ui-body-b,
+.ui-page-theme-b .ui-body-inherit,
+html .ui-bar-b .ui-body-inherit,
+html .ui-body-b .ui-body-inherit,
+html body .ui-group-theme-b .ui-body-inherit,
+html .ui-panel-page-container-b {
+	background-color: $bg-colour-dark /*{B-body-background-color}*/;
+	border-color: #DDD /*{B-body-border}*/;
+	color: #FFF /*{B-body-color}*/;
+	text-shadow: 0 /*{B-body-shadow-x}*/ 1px /*{B-body-shadow-y}*/ 0 /*{B-body-shadow-radius}*/ #111 /*{B-body-shadow-color}*/;
+}
+/* --- Links --- */
+.ui-page-theme-b a,
+html .ui-bar-b a,
+html .ui-body-b a,
+html body .ui-group-theme-b a,
+/* Visited */
+.ui-page-theme-b a:visited,
+html .ui-bar-b a:visited,
+html .ui-body-b a:visited,
+html body .ui-group-theme-b a:visited,
+/* Hover */
+.ui-page-theme-b a:hover,
+html .ui-bar-b a:hover,
+html .ui-body-b a:hover,
+html body .ui-group-theme-b a:hover,
+/* Active */
+.ui-page-theme-b a:active,
+html .ui-bar-b a:active,
+html .ui-body-b a:active,
+html body .ui-group-theme-b a:active,
+/* Focus*/
+.ui-page-theme-b a:focus,
+html .ui-bar-b a:focus,
+html .ui-body-b a:focus,
+html body .ui-group-theme-b a:focus {
+	color: $main-colour-light;
+}
+/* Active button */
+.ui-page-theme-b .ui-btn.ui-btn-active,
+html .ui-bar-b .ui-btn.ui-btn-active,
+html .ui-body-b .ui-btn.ui-btn-active,
+html body .ui-group-theme-b .ui-btn.ui-btn-active,
+html head + body .ui-btn.ui-btn-b.ui-btn-active,
+/* Active checkbox icon */
+.ui-page-theme-b .ui-checkbox-on:after,
+html .ui-bar-b .ui-checkbox-on:after,
+html .ui-body-b .ui-checkbox-on:after,
+html body .ui-group-theme-b .ui-checkbox-on:after,
+.ui-btn.ui-checkbox-on.ui-btn-b:after,
+/* Active flipswitch background */
+.ui-page-theme-b .ui-flipswitch-active,
+html .ui-bar-b .ui-flipswitch-active,
+html .ui-body-b .ui-flipswitch-active,
+html body .ui-group-theme-b .ui-flipswitch-active,
+html body .ui-flipswitch.ui-bar-b.ui-flipswitch-active,
+/* Active slider track */
+.ui-page-theme-b .ui-slider-track .ui-btn-active,
+html .ui-bar-b .ui-slider-track .ui-btn-active,
+html .ui-body-b .ui-slider-track .ui-btn-active,
+html body .ui-group-theme-b .ui-slider-track .ui-btn-active,
+html body div.ui-slider-track.ui-body-b .ui-btn-active {
+	background-color: $main-colour /*{B-active-background-color}*/;
+	border-color: $main-colour-dark /*{B-active-border}*/;
+	color: #FFF /*{B-active-color}*/;
+	text-shadow: 0 /*{B-active-shadow-x}*/ 1px /*{B-active-shadow-y}*/ 0 /*{B-active-shadow-radius}*/ #111 /*{B-active-shadow-color}*/;
+}
+/* Active radio button icon */
+.ui-page-theme-b .ui-radio-on:after,
+html .ui-bar-b .ui-radio-on:after,
+html .ui-body-b .ui-radio-on:after,
+html body .ui-group-theme-b .ui-radio-on:after,
+.ui-btn.ui-radio-on.ui-btn-b:after {
+	border-color: $main-colour /*{B-active-background-color}*/;
+}
+/* Focus */
+.ui-page-theme-b .ui-btn:focus,
+html .ui-bar-b .ui-btn:focus,
+html .ui-body-b .ui-btn:focus,
+html body .ui-group-theme-b .ui-btn:focus,
+html head + body .ui-btn.ui-btn-b:focus,
+/* Focus buttons and text inputs with div wrap */
+.ui-page-theme-b .ui-focus,
+html .ui-bar-b .ui-focus,
+html .ui-body-b .ui-focus,
+html body .ui-group-theme-b .ui-focus,
+html head + body .ui-btn-b.ui-focus,
+html head + body .ui-body-b.ui-focus {
+	-webkit-box-shadow: 0 0 12px $main-colour /*{B-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px $main-colour /*{B-active-background-color}*/;
+	box-shadow: 0 0 12px $main-colour /*{B-active-background-color}*/;
+}
+
+/* --- Non-semantic Helper Classes
+-----------------------------------------------------------------------------------------------------------*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix {
+	display: inline-block;
+}
+html[xmlns] .clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
+.offscreen {
+	position: absolute !important;
+	left: -10000px !important;
+	top: auto !important;
+	width: 1px !important;
+	height: 0px !important;
+	overflow: hidden !important;
+}
+.centre {
+	text-align: center;
+}
+.main-colour {
+	color: $main-colour;
+}
+.banish {
+	display: none !important;
+}
+
+/* --- Font Declarations
+-----------------------------------------------------------------------------------------------------------*/
+@font-face {
+	font-family: 'Titillium-Regular';
+	font-style: regular;
+	font-weight: 300;
+	src: local('Titillium-Regular'), url(../fonts/Titillium-Regular.woff) format('woff');
+}
+@font-face {
+	font-family: 'Open Sans Light';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/OpenSans-Light.woff) format('woff');
+}
+@font-face {
+	font-family: 'Open Sans Normal';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans-Normal'), url(../fonts/OpenSans-Normal.woff) format('woff');
+}
+@font-face {
+	font-family: 'Open Sans Bold';
+	font-style: bold;
+	font-weight: 700;
+	src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../fonts/OpenSans-Bold.woff) format('woff');
+}

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="meetingListApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>Meetings | MeetingFlix</title>
+	
+    <link rel="stylesheet" href="MeetingFlixAssets/css/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="MeetingFlixAssets/css/jquery.mobile-changes.css">
+    <link rel="stylesheet" href="MeetingFlixAssets/css/cabflix.css">
+
+	<style type="text/css">
+			#meetings #listing {
+				margin: 40px 0;
+				padding: 0;
+			}
+			#meetings #listing li {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				border-bottom: 1px solid #C5C5C5;
+				overflow: hidden;
+			}
+			#meetings #listing li:first-child {
+				border-top: 1px solid #C5C5C5;
+			}
+			#meetings #listing a,
+			#meetings #listing a:link,
+			#meetings #listing a:visited {
+				margin: 0 ;
+				width: 100%;
+				padding: 20px 10px;
+				display: inline-block;
+				color: #5a5a5a;
+				text-decoration: none;
+				margin-bottom: -10px
+			}
+			#meetings #listing a:hover,
+			#meetings #listing a:focus,
+			#meetings #listing a:active {
+				background-color: #DADADA;
+				color: #000;
+			}
+			#meetings #listing .type {
+				display: inline-block;
+				min-width: 100px;
+				margin: 0 20px 0 0;
+				font-weight: bold;
+				float: left;
+				line-height: 1.6em;
+			}
+			#meetings #listing .info {
+				display: inline-block;
+				float: left;
+				line-height: 1.6em;
+			}
+			.sample {
+				color: #3879D9;
+			}
+			#meetings #listing a:hover .sample,
+			#meetings #listing a:hover .sample,
+			#meetings #listing a:hover .sample {
+				color: #000;
+			}
+		</style>
+	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	
+	<script src="MeetingFlixAssets/js/jquery-2.1.1.min.js"></script>
+    <script src="MeetingFlixAssets/js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="MeetingFlixAssets/js/angular.min.js"></script>
+	<script src="MeetingFlixAssets/js/jquery.SPServices-2014.01.min.js"></script>
+
+	<script src="MeetingFlixAssets/js/meetingList.app.js"></script>
+    <script src="MeetingFlixAssets/js/meetingList.services.js"></script>
+    <script src="MeetingFlixAssets/js/meetingList.controllers.js"></script>
+	
+	<script>
+	$(document).ready(function() {
+		$('body').css('visibility', 'visible');
+	});	
+	</script>
+</head>
+<body style="visibility:hidden">
+	<div class="jqm-panel-page">
+	
+		<header data-role="header" class="jqm-header">
+			<a href="MeetingFlix.html" data-ajax="false" id="logout-button" class="ui-link ui-btn ui-icon-bars ui-btn-inline ui-shadow ui-corner-all">Exit</a>
+			<h1 style="overflow:visible">
+				<span class="app-name">MeetingFlix</span> 
+			</h1>	
+		</header>
+
+		<!-- Main Page Build -->
+		
+		<div id="meetings" ng-controller="controllerManifest" role="main" class="ui-content jqm-content">
+			<h2>Upcoming Meetings</h2>
+			<ul id="listing">
+				<li ng-repeat="x in manifest.Meetings">
+					<a href='Meeting.html?id={{x["@ID"]}}' data-ajax="false">
+						<span class="type">{{x["@Status"]}}</span>
+						<span class="info">
+							<strong>{{x["@Name"]}}</strong><br />
+							{{x["@MeetingDate"] | datetimetojustdate}}, {{x["@StartTime"] | datetimetojusttime}} – {{x["@EndTime"] | datetimetojusttime}}<br />
+							{{x["@SentToMeetingFlixBy"]}} sent this to MeetingFlix on {{x["@SentToMeetingFlixOn"] | datetimetojustdate}} at {{x["@SentToMeetingFlixOn"] | datetimetojusttime}}<br />
+							<em class="sample">{{x["@Location"]}}</em>
+						</span>
+					</a>
+					<!--<a href="javascript:void(0)" class="take-offline" title="Take This Meeting Offline" style="" id="archive-{{x['@ID']}}">Take Offline</a>-->
+				</li>
+			</ul>
+		</div><!-- /main -->
+
+	</div><!-- /page -->
+</body>
+</html>
